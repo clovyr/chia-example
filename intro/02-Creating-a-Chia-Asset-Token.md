@@ -6,8 +6,11 @@ CATs are useful to represent real world assets like cars or rare books. They can
 
 CATs are unforegeable. No extra value can be added to, or removed from, the set at any point after their creation (though they can be merged with a new deposit to create a new CAT with a higher value than before). Their value is always transferred from legitimate CAT parents. The value of the CAT can be stored in one big coin, or split among any number of coins of arbitrary value, summing to the total value of the CAT.
 
-## Working Examples
-- [Piggybank](../examples/chia-piggybank/README.md) - save mojos in a piggybank, and transfer them to a spendable coin when a goal is reached
+## Example CAT: Piggybank
+- [Piggybank Step-by-Step: A Gentle Introduction](POST-4.md)
+- [Writing (An Insecure) Piggybank Coin: Intermediate Guide](POST-1.md)
+- [Contribute and Cash Out A Piggybank Coin](POST-2.md)
+- [Driver Code](POST-3.md)
 
 ## Related Topics
 
