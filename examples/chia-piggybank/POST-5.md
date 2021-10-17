@@ -2,6 +2,7 @@ Test out the Piggybank Example in 15 minutes
 
 # Connect to testnet
 
+Download the blockchain
  - `export CHIA_ROOT="~/.chia/testnet"`
  - `chia init`
  - `chia configure --testnet true`
@@ -9,6 +10,8 @@ Test out the Piggybank Example in 15 minutes
  - `mkdir db`
  - `cd db`
  - `wget https://download.chia.net/testnet7/blockchain_v1_testnet7.sqlite`
+
+Add this node to the network
  -  `chia keys generate` (Copy resulting address for later)
  - `chia start farmer`
  - `chia show -a testnet-node.chia.net:58444`
