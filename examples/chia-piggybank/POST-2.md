@@ -420,10 +420,18 @@ Wallet ID 1 type STANDARD_WALLET Chia Wallet
 
 Now we know how to deploy a smart coin and spend them. Messing with a spend bundle file directly is very inconvenient, but it's good to know how things work. Next post, we will do the samething but with the driver code.
 
-> Please note that our piggybank and contribution coins are not secured at all. We will strenghten it up later when walkthrough [4 - Securing a Smart Coin](https://youtu.be/_SBGfMZhRd8) tutorial.
+> Please note that our piggybank and contribution coins are not secured at all. We will strenghten it up in later [post](POST-4.md).
+
+## Files
+
+- [piggybank.clsp](https://github.com/kimsk/chia-piggybank/blob/d32c30d208073ded0146ea195d818e6d196b556a/piggybank/piggybank.clsp)
+- [contribution.clsp](https://github.com/kimsk/chia-piggybank/blob/d32c30d208073ded0146ea195d818e6d196b556a/piggybank/contribution.clsp)
+- [spend_bundle-100.json](https://github.com/kimsk/chia-piggybank/blob/d32c30d208073ded0146ea195d818e6d196b556a/spend_bundle-100.json)
+- [spend_bundle-200.json](https://github.com/kimsk/chia-piggybank/blob/d32c30d208073ded0146ea195d818e6d196b556a/spend_bundle-200.json)
+- [spend_bundle-300.json](https://github.com/kimsk/chia-piggybank/blob/d32c30d208073ded0146ea195d818e6d196b556a/spend_bundle-300.json)
+- [spend_bundle-four-coins.json](https://github.com/kimsk/chia-piggybank/blob/d32c30d208073ded0146ea195d818e6d196b556a/spend_bundle-four-coins.json)
 
 ### References
 
-[8 - Deploying a Smart Coin to the Blockchain](https://www.youtube.com/watch?v=Y_p9qF2XLks)
-
-[9 - Spending Your Smart Coin](https://www.youtube.com/watch?v=KGC5zACBjkY)
+- [tutorial | 8 - Deploying a Smart Coin to the Blockchain](https://www.youtube.com/watch?v=Y_p9qF2XLks)
+- [tutorial | 9 - Spending Your Smart Coin](https://www.youtube.com/watch?v=KGC5zACBjkY)

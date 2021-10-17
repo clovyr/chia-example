@@ -40,13 +40,13 @@ After painstaking creting the spend bundle, the last step is to push the spend b
 
 Fortunately, we can do all the steps above via another program. Chia blockchain and many of associated tools and libraries are written in Python, so we could utilize those code to write a Python program (called a driver code) to loading puzzle, getting puzzle hash, encoding/decoding, or talking with the full node or wallet.
 
-The sample code from the [Driver Code](https://www.youtube.com/watch?v=dGohmAc658c) tutorial video is a good start, but we can do better. The driver code is [here](piggybank/piggybank_drivers.py), but let's see some exmaples:
+The sample code from the [Driver Code](https://www.youtube.com/watch?v=dGohmAc658c) tutorial video is a good start, but we can do better. The driver code is [here](https://github.com/kimsk/chia-piggybank/blob/c8bdd9cc3eead4bac816ae0afd34e0358f834e6a/piggybank/piggybank_drivers.py), but let's see some exmaples:
 
 ### get the puzzle hash and address
 
 ```python
 # load coins (compiled and serialized, same content as clsp.hex)
-mod = load_clvm(clsp_file, package_or_requirement=__name__)
+mod = load_clvm(clsp_file, package_or_requirement=__name__, search_paths=["../include"]) 
 # cdv clsp treehash
 treehash = mod.get_tree_hash()
 # cdv encode
@@ -78,30 +78,32 @@ coin = next((c for c in tx.additions if c.puzzle_hash == puzzle_hash), None)
 ### build and push the spend bundle (deposit)
 
 ```python
-def deposit(piggybank_coin: Coin, contribution_coin: Coin):
+def deposit(piggybank_coin: Coin, contribution_coins):
+    if type(contribution_coins) != list:
+        contribution_coins: list = [contribution_coins]
+
+    contribution_amount = sum([c.amount for c in contribution_coins])
+
     # coin information, puzzle_reveal, and solution
     piggybank_spend = CoinSpend(
         piggybank_coin,
-        load_clvm(PIGGYBANK_CLSP, package_or_requirement=__name__),
-        solution_for_piggybank(piggybank_coin, contribution_coin.amount)
+        PIGGYBANK_MOD,
+        solution_for_piggybank(piggybank_coin, contribution_amount)
     )
 
-    contribution_spend = CoinSpend(
-        contribution_coin,
-        load_clvm(CONTRIBUTION_CLSP, package_or_requirement=__name__),
-        solution_for_contribution()
-    )
+    cc_puzzle = CONTRIBUTION_MOD
+    cc_solution = solution_for_contribution()
+    contribution_spends = [CoinSpend(c, cc_puzzle, cc_solution) for c in contribution_coins]
 
     # empty signature i.e., c00000.....
     signature = G2Element()
 
+    coin_spends = [cs for cs in contribution_spends]
+    coin_spends.append(piggybank_spend)
     # SpendBundle
     spend_bundle = SpendBundle(
             # coin spends
-            [
-                piggybank_spend,
-                contribution_spend
-            ],
+            coin_spends,
             # aggregated_signature
             signature,
         )
@@ -363,12 +365,14 @@ We should now see that all contribution coins were spent, new piggybank coin was
 
 Although it's good to understand the how things work behind the scenes, pratically, performing all steps manually is hard and very error-prone. With driver code, we are now able to automate all of the steps we need to deploy and spend smart coins.
 
-> However, as we know, the smart coins we have are not secure because anyone can spend them with empty aggregated signature. Moreover, any malicious full node can modify our spend bundle and take all of our mojos! Next post, let's try to secure our smart coins step by step.
+> However, as we know, the smart coins we have are not secure because anyone can spend them with empty aggregated signature. Moreover, any malicious full node can modify our spend bundle and take all of our mojos! [Next post](POST-4.md) , let's try to secure our smart coins step by step.
+
+## Files
+
+- [piggybank_drivers.py](https://github.com/kimsk/chia-piggybank/blob/c8bdd9cc3eead4bac816ae0afd34e0358f834e6a/piggybank/piggybank_drivers.py)
 
 ## References
 
-[6 - Driver Code](https://www.youtube.com/watch?v=dGohmAc658c)
-
-[Chia-Network/chia-blockchain](https://github.dev/Chia-Network/chia-blockchain)
-
-[Chia-Network/chia-dev-tools](https://github.dev/Chia-Network/chia-dev-tools)
+- [6 - Driver Code](https://www.youtube.com/watch?v=dGohmAc658c)
+- [Chia-Network/chia-blockchain](https://github.dev/Chia-Network/chia-blockchain)
+- [Chia-Network/chia-dev-tools](https://github.dev/Chia-Network/chia-dev-tools)
