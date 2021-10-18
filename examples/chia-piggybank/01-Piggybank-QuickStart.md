@@ -51,7 +51,7 @@ This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and 
 
 - `python3 -i ./piggybank_drivers.py` - load the piggybank python driver in interactive mode
 - `piggybank = deploy_smart_coin("piggybank.clsp", 0)` - deploy the piggybank contract with initial balance of 0
-   - `CTRL + D` to exit the python interpreter (will unset the value of `piggybank`)
+
 - Note `your_puzzle_hash`
 
 ## Move mojos into piggybank
@@ -59,11 +59,8 @@ We create a contribution coin, which spends funds from our wallet into a contrib
 
  - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)`
  - `contribution_200 = deploy_smart_coin(("contribution.clsp", 450)`
-
-  - piggybank = get_coin("a61eb63b0206e1ced64d3c3becc054ebf3dcf43ad3d4ea78c4a685844ed1af8c")
-contribution_100 = get_coin("ad65797cd26018efb0ef8903532124704749b71bd77e765ebd19ad0cb7f5cd9c")
  - `deposit(piggybank, contribution_100)`
 
 ## Verify savings dump to new coin
-
+ - `CTRL + D` to exit the python interpreter (will unset the values of `piggybank`, `contribution_100`, & `contribution_200`)
  - `cdv rpc coinrecords --by puzhash [your_puzzle_hash] -ou -s 570135 -nd`
