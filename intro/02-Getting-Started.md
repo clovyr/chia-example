@@ -66,4 +66,4 @@ Each of these tools is already installed in this Clovyr Code environment. Go ahe
 [![Programming in Chialisp](static/img/video-programming_in_chialisp.png)](https://www.youtube.com/watch?v=JcC1_igwSmA)
 
 
-**Next Topic > [Creating a Chia Asset Token](intro/03-Creating-a-Chia-Asset-Token.md)**
+**Next Topic > [Creating a Chia Asset Token](03-Creating-a-Chia-Asset-Token.md)**

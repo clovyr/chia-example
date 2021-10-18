@@ -26,4 +26,4 @@ This piggybank example is a simple version of something like a Kickstarter model
    
    Visit kimsk's piggybank example on [github](https://github.com/kimsk/chia-piggybank), which expands the piggybank contract to explore additional security considerations, including attestations and contribution coins. Under active development. 
 
-**Next Topic > [Creating a Singleton](intro/03-Creating-a-Singleton.md)**
+**Next Topic > [Creating a Singleton](04-Creating-a-Singleton.md)**
