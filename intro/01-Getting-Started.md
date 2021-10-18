@@ -1,53 +1,74 @@
-# [Chia Dev Sandbox](../README.md) > Getting Started
+# [Chia Dev Sandbox](../README.md) > Chia 101
 
-The main resources for Chialisp are:
+This guide offers a plain-english introduction to the most important concepts you'll want understand in order to begin building within the Chia ecosystem. Unlike guides that focus on getting started plotting or farming, our focus here is on understanding the lifecycle of a smart coin (in Chia, all the coins are smart!). We assume that you are familiar with basic blockchain and programming concepts, but not necessarily LISP - the language on which Chialisp is based.
 
-  - [Chialisp website](https://chialisp.com/)
-  - [Chialisp docs](https://chialisp.com/docs/)
-  - [Video tutorials](https://chialisp.com/docs/tutorials/why_chia_is_great/)
+Visit chialisp.com for a deeper dive into Chia fundamentals: [docs](https://chialisp.com/docs/) | [video tutorials](https://chialisp.com/docs/tutorials/why_chia_is_great/)
 
-## Chia concepts crash course
+## "Smart Coins" vs "Smart Contracts" 
+In most blockchain systems (like Ethereum), transactions are first class objects. There is a single smart contract that maintains an internal representation of who owns the token objects that the contract has been given permission to manipulate. The state of this contract is updated not when a transaction is sent to the contract, but when the transaction is processed by the contract (minted into a block). This means that the order that transactions are processed matters very much and opens the system to tampering by miners who might manipulate the order in which transactions are mined. 
 
-### "Smart Coins" vs "Smart Contracts" 
+In Chia, coins are the first class object. This means that all the rules and functionality for a coin exist *inside* the coin itself. Coins can be spent in many ways, e.g. sending a coin from Alice to Bob, donating to a crowd-funding campaign, or buying an NFT.  Each of these actions consumes existing coin(s), ending in creation of a new coin with updated state. Thus, the ledger is resistant to transaction order fidgeting, and the overall system is more "decentralized" because each coin is running on rules intrinsic to itself. 
 
-In most blockchain systems (like Ethereum), transactions are first class objects. There is a single smart contract that maintains an internal representation of who owns the tokens the contract has been given permission to manipulate. The state of this contract is updated not when a transaction is sent to the contract, but when the transaction is processed by the contract (minted into a block). This means that the order that transactions are processed matters very much and opens the system to tampering by miners who might manipulate the order in which transactions are mined. 
-
-In Chia, money is the first class object. This means that all the rules and functionality for a coin exist *inside* the coin itself. Coins only exist once. Running the coin's program spends that coin. Coins can be spent in many ways, e.g. sending a coin from Alice to Bob, donating to a crowd-funding campaign, or buying an NFT.  Each of these actions consumes existing coin(s), ending in creation of a new coin with updated state. Thus, the ledger is resistant to transaction order fidgeting, and the overal system is more "decentralized" because each coin is running on rules intrinsic to itself. Spends are atomic: they have either happened or they have not (i.e. we avoid any re-entrancy bugs). 
-
-### Programs are called puzzles
-
+## Programs are called puzzles
 Spending a coin requires solving that coin's puzzle, which is also equivalent to successfully running a coin's program. Running a coin's program successfully will always result in destruction of that coin and creation of one or more new coins. If the puzzle isn't solved successfully, the coin isn't spent. Anyone can attempt to solve any puzzle, so it's up to the coin's creator to secure the intended behavior of the coin. 
 
-The most basic coin program is the "standard puzzle," which says "I will only respond to a spend attempt that is signed by a specific public key, and I will then follow any other instructions given to me."
+In Chia, coin spends are atomic: they have either happened or they have not (i.e. we avoid any re-entrancy bugs). While the operation of each coin is stateless, coins can carry states that are traceable down through their descendents. They can contain arbitrary fixed data blobs that travel with the coin forever, increment a tally with each spend, or refuse to be spent unless some other requirements have been met. The possibilities are endless.
 
-Puzzles can be much more complicated, though. They can contain arbitrary data blobs that travel with the coin forever, increment a tally with each spend, or refuse to be spent unless some other requirements have been met. 
+## It's puzzles all the way down
+The process of solving a puzzle involves sending the puzzle arguments (which are specified ahead of time within the puzzle) that allow the program to come to a successful conclusion. Those arguments can be public keys, constants, or even other puzzles themselves. Thus, puzzles can be nested infinitely, allowing each iteration of a coin to attach and change the rules about how that coin might be spent in its next iteration (but never reversing how it was spent previously). The spending of a coin equates to consenting to adopting the rules of the next genration of the coin.  
 
-Programs that run successfully return a list of conditions. These might be more familar as "OP codes." For example, one condition returned for a basic puzzle is CREATE_COIN, which will create a new coin to replace the one being spent. 
+Note that once solved, a puzzle's solution is stored transparently -- albeit as bytecode -- on the blockchain. This means that arguments passed in may eventually become public knowledge. 
 
-Once solved, a puzzle's solution is stored transparently on the blockchain. This means that arguments passed in will eventually become public knowledge. 
+## The Standard Puzzle
+The most common coin program is the "standard puzzle," which says "I will only respond to a spend attempt that is signed by a specific public key, and I will then follow any other instructions given to me." Because the standard puzzle is the one used by all newly farmed Chia tokens (XCH) and governs the perpetual transfer of all XCH, it includes a variety of security and extensibility features that make it a wonderful puzzle to study, but not actually a very simple puzzle to begin with for building basic understanding. (We'll explore a simple [and insecure] custom token in the next guide.)
 
-### Coins contain:
-
- - ParentID - Information about the coin that created this coin
- - Amount - How many mojos this coin represents (or, for custom tokens, how many of that token's denomination). Mojos are to Chia as Satoshis are to Bitcon. 
+## The anatomy of a coin:
+Coins follow the same format:
+ - ParentID - Information about the coin that created this coin.
  - Puzzle Hash - The hash of the puzzle (program) that governs this coin. 
+ - Amount - How many mojos this coin represents (or, for custom tokens, how many of that token's denomination). Mojos are to Chia as Satoshis are to Bitcon. 
 
- CoinID - The hash of these three pieces of information together
+ CoinID - The hash of these three pieces of information together.
 
-### No one "owns" a coin
+## No one "owns" a coin
+Anyone can attempt to solve a puzzle. By requiring arguments that are unknown to outsiders, we can restrict who is able to interact with the coin.
 
-Ok. But the coins in my wallet are mine, right? 
-Yes. "Standard puzzle" coins that must be signed by your pubkey (and only your pubkey) as an input to their puzzle solution can only be spent by you. 
+...Ok. But the coins in my wallet are mine, right? 
 
-### Transactions happen as "spend bundles"
+Yes! Coins and tokens that must be signed by your pubkey (and only your pubkey) as an input to their puzzle solution can only be spent by you... Just like in Bitcoin, your coins are as secure as your private key. 
 
-To create a spend, you reveal the full puzzle corresponding to the puzzle hash inside the coin to be spent, and also attach a solution to that puzzle
+## The internet is for CATs
+ - Coins are things which exists on the Chia blockchain, analogous to a UTXO in Bitcoin. 
+ - Chia Asset Tokens (CATs) are coins which represent an underlying asset, sometimes colloquially just called tokens. CATs are fungible coins simlilar to ERC-20 in Ethereum. 
+ 
+ Some Chia documentation refers to Coloured Coins, which have been deprecated in deference to the new CAT standard. For more details, see this [Glossary](https://www.chia.net/2021/09/23/chia-token-standard-naming.en.html).
 
-The Spend Bundle object contains:
+## Transactions happen as "spend bundles"
+To create a spend, you reveal the full puzzle corresponding to the puzzle hash inside the coin to be spent, and also attach a solution to that puzzle.
+
+The Coin Bundle object contains:
  - The ID of a coin to be spent
- - A puzzle reveal - the fulltext of a coin's program, the hash of which must match the Puzzle Hash of the target coin to spend
+ - A puzzle reveal - the code of a coin's program, the hash of which must match the Puzzle Hash of the target coin to spend
  - A solution - arguments that solve the puzzle
- - An aggregated signature - spend bundles can contain multiple coin spends with one single aggregated signature
+
+ The Spend Bundle contains:
+ - A list of coin spends
+ - An aggregated signature - Just one [BLS signature](https://github.com/Chia-Network/chia-blockchain/wiki/Chia-Keys-Architecture#bls-keys) for the entire bundle
+
+ More on [Spend Bundles](https://chialisp.com/docs/coin_lifecycle#spend-bundles)
+
+## Conditions
+In addition to their internal logic, programs that run successfully both evaluate and return lists of conditions. Conditions might be more familar as "opcodes." The Conditions library is a mapping of opcodes to human-readable aliases which can be used in programs, in lieu of their opcode numbers. Conditions allow programs to communicate with with the blockchain.
+
+For example, one condition might be to check ASSERT_HEIGHT_RELATIVE, ensuring that the spend is only valid if the specified number of blocks have passed since this coin was created. If the condition is not passed, the program aborts.
+
+An output condition might be CREATE_COIN, which will create a new coin to replace the one being spent. 
+
+View the full list of [Conditions](https://chialisp.com/docs/coins_spends_and_wallets#conditions). 
+
+## Announcements & Assertions
+
+## Farming a coin spend
 
 In a process familiar to most blockchains, a spend bundle is broadcast to the network and a Chia farmer will eventually evaluate it:
   - Does a coin with the Coin ID exist?
@@ -56,18 +77,18 @@ In a process familiar to most blockchains, a spend bundle is broadcast to the ne
   - What conditions are returned by this spend?
   - Do the conditions pass? 
 
-### Mental models for a few common transaction archetypes
+## Mental models for a few common transaction archetypes
 
-#### Alice sends 100 mojo to Bob
+### Alice sends 100 mojo to Bob
 * Alice's sync'd wallet contains a local index of all the coins for which her private key is an input to their puzzle?
 * There are standard Chia coins (XTCH) for which the solution to their puzzle has is Al
 * Alice passes a coin the arguments that solve its puzzle: the coin's amount, her private key, and Bob's public key
 
-#### Alice sends 100 mojo into a shared, public piggybank
+### Alice sends 100 mojo into a shared, public piggybank
 
-#### Alice buys an NFT for 100 mojo
+### Alice buys an NFT for 100 mojo
 
-### Putting it all together
+## Putting it all together
 
 As Chialisp developers, this means that we need to think about "programmable money" in a new way: Each 
 
@@ -79,7 +100,7 @@ As Chialisp developers, this means that we need to think about "programmable mon
  - All these rules can be layered.
 
 
-## Developing on Chia crash course
+# Developing on Chia crash course
 
 ### Terms to know
  - CLVM - the compressed language which runs on the Chia blockchain
