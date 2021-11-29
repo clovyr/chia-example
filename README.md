@@ -13,17 +13,17 @@ Notes:
 
 ### Create and sync a wallet
 1. `chia start node` - start the node
-   - `chia show -c` - view peers (we benchmarked 2 peers in 10s, 4+ in 30s) 
-   - `chia show -s` - view sync status (we benchmarked sync complete in ~4m 30s)
+   - `chia show -c` - view peers *(we benchmarked 2 peers in 10s, 4+ in 30s)*
+   - `chia show -s` - view sync status *(we benchmarked sync complete in ~4m 30s)*
 2. `chia keys generate` - generate unique keys private to the user
-3. `chia start wallet` - begin the wallet fast sync (we benchmarked about 10s to start service, sync near instant!)
+3. `chia start wallet` - begin the wallet fast sync *(we benchmarked about 10s to start service, sync near instant!)*
 
 ### Get test mojos
 1. `chia wallet show` - view wallet fingerprint and sync status
 2. `chia wallet get_address -f [fingerprint]` - get wallet address from fingerprint
 3. https://testnet10-faucet.chia.net/request - open the chia testnet web faucet
 4. enter the wallet address and click [Submit]
-5. `chia wallet show` - verify that the txch was received (we benchmarked 1min to receive)
+5. `chia wallet show` - verify that the txch was received *(we benchmarked 1m to receive)*
 
 ### Prepare piggybank
 First, we generate a puzzle hash from our wallet address:
@@ -52,5 +52,5 @@ Eventually, we will deploy an empty piggybank, create & send contribution coins,
 3. `python3 -i ./piggybank_drivers.py` - load the piggybank python driver in interactive mode
    - TOFIX: creating an empty piggybank is failing, likely due to recent updates in the python API. Will look at this.  
    - However, creating a contribution coin with a value IS working, so we will use that to verify connectivity: 
-   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)` (we benchmarked 30s for confirmation with 0 fees)
+   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)` *(we benchmarked 30s for confirmation with 0 fees)*
 5. `CTRL + D` to exit the python interpreter (will unset the value of `contribution_100`) 
