@@ -1,8 +1,8 @@
 ![Chia Logo](intro/static/img/chia-logo.svg)
 
-# :seedling: Chia Dev Sandbox TEST PREVIEW 
+# Chia Dev Sandbox TEST PREVIEW 
 
-:information_source: Notes:
+Notes:
 - The environment starts with `cdv` and `chia` installed
 - `chia init` is configured for testnet10
 - Latest sqlite db is loaded
@@ -42,12 +42,13 @@ Then, we update the example file to use our wallet address as the location for t
    - e.g.: (defconstant CASH_OUT_PUZZLE_HASH 0x7ba40c4022538388575ebde88dd0158da37e311d28a81e60e576e67807d26ec7) 
 7. `CTRL+S` to save the file
 
-### Test connectivity (Create & deploy contribution coin)
-This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and forms a coin with zero mojos and this puzzle hash. 
+### Test connectivity 
+Eventually, we will deploy an empty piggybank, create & send contribution coins, and verify a payment once the threshold is met. 
+
 1. `chia wallet show` - ensure that the wallet is Synced
 2. ensure you are in the `examples/piggybank-test` directory
 3. `python3 -i ./piggybank_drivers.py` - load the piggybank python driver in interactive mode
-   - TOFIX: creating an empty piggybank is failing, likely due to updates in the python API. Will look at this.  
-   - However, creating a contribution coin with a value is working. 
-   - To verify connectivity to the blockchain: `contribution_100 = deploy_smart_coin("contribution.clsp", 100)`
+   - TOFIX: creating an empty piggybank is failing, likely due to recent updates in the python API. Will look at this.  
+   - However, creating a contribution coin with a value IS working, so we will use that to verify connectivity: 
+   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)`
 5. `CTRL + D` to exit the python interpreter (will unset the value of `contribution_100`) 
