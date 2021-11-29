@@ -6,6 +6,7 @@
 - The environment starts with `cdv` and `chia` installed
 - `chia init` is configured for testnet10
 - Latest sqlite db is loaded
+- To view this page again, open [README.md](README.md) and hit `CTRL+SHIFT+V`.
 
 ## User Steps
 
