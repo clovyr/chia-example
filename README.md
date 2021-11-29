@@ -45,7 +45,7 @@ Then, we update the example file to use our wallet address as the location for t
    - e.g.: (defconstant CASH_OUT_PUZZLE_HASH 0x7ba40c4022538388575ebde88dd0158da37e311d28a81e60e576e67807d26ec7) 
 7. `CTRL+S` to save the file
 
-### Deploy empty piggybank
+### Deploy piggybank
 This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and forms a coin with zero mojos and this puzzle hash. 
 1. `chia wallet show` - ensure that the wallet is Synced
 2. ensure you are in the `examples/piggybank-test` directory
