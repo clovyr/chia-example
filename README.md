@@ -1,21 +1,17 @@
-# Chia Dev Sandbox 
-
 ![Chia Logo](intro/static/img/chia-logo.svg)
 
+# :seedling: Chia Dev Sandbox TEST PREVIEW 
 
-
-=== TEST PREVIEW ===
-
-Notes:
+:information_source: Notes:
 - The environment starts with `cdv` and `chia` installed
-- `chia init` is already configured for testnet10
-- sqlite db is loaded and sync to latest block is ready to begin
+- `chia init` is configured for testnet10
+- Latest sqlite db is loaded
 
 ## User Steps
 
 ### Create and sync a wallet
 1. `chia start node` - start the node
-   - `chia show -c` - view peers 
+   - `chia show -c` - view peers (we benchmarked 
    - `chia show -s` - view sync status
 2. `chia keys generate` - generate unique keys private to the user
 3. `chia start wallet` - begin the wallet fast sync
