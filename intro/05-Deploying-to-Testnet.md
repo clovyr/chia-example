@@ -19,7 +19,4 @@ This is a slow and error prone way to deploy a coin, but a very useful exercise 
 ## Via a Driver Script
 We can automate interacting with a chialisp coin via driver files. These scripts can deploy the coin without risking human error, and also make it easier to interact with the coin later. [Video Tutorial](https://www.youtube.com/watch?v=dGohmAc658c)
 
-Example drivers: [Piggybank](../examples/chia-piggybank/piggybank_drivers.py) | [Chia Video Example] (to add)
-
-
-**Next Topic > [Deploying to Mainnet](06-Deploying-to-Mainnet.md)**
+Example drivers: [Piggybank](../examples/chia-piggybank/piggybank_drivers.py) 

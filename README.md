@@ -1,56 +1,45 @@
-![Chia Logo](intro/static/img/chia-logo.svg)
+![Chia Logo](intro/static/img/chia-clovyr-logos.png)
 
-# Chia Dev Sandbox TEST PREVIEW 
+Here you can experiment with Chialisp, a powerful and secure language for smart money based on LISP.
 
-Notes:
-- The environment starts with `cdv` and `chia` installed
-- `chia init` is configured for testnet10
-- Latest sqlite db is loaded
-- If copy/paste in the terminal is not working, look for a popup alert or clipboard icon in the URL bar and click "Allow"
-- To view this page again, open [README.md](README.md) and hit `CTRL+SHIFT+V`.
+All of the necessary tools like `chia` and `cdv` are already installed and a connection to testnet10 is pre-configured.
 
-## User Steps
+We suggest opening [this page](https://github.com/clovyr/chia-example/blob/main/README.md) in a separate browser tab so you can easily refer to these resources while you work. 
 
-### Create and sync a wallet
-1. `chia start node` - start the node
-   - `chia show -c` - view peers *(we benchmarked 2 peers in 10s, 4+ in 30s)*
-   - `chia show -s` - view sync status *(we benchmarked sync complete in ~4m 30s)*
-2. `chia keys generate` - generate unique keys private to the user
-3. `chia start wallet` - begin the wallet fast sync *(we benchmarked about 10s to start service, sync near instant!)*
+===================================================
+## Coming Soon: [Chialisp Developer Challenge](https://github.com/clovyr/chia-example/blob/main/intro/90-Chialisp-Developer-Challenge.md)
 
-### Get test mojos
-1. `chia wallet show` - view wallet fingerprint and sync status
-2. `chia wallet get_address -f [fingerprint]` - get wallet address from fingerprint
-3. https://testnet10-faucet.chia.net/request - open the chia testnet web faucet
-4. enter the wallet address and click [Submit]
-5. `chia wallet show` - verify that the txch was received *(we benchmarked 1m to receive)*
+## Getting Started with Clovyr Code and Chia
+   1.  [About Clovyr Code](https://github.com/clovyr/chia-example/blob/main/intro/98-About-Clovyr-Code.md)
+   2.  [A Gentle Introduction to Chia Concepts](https://github.com/clovyr/chia-example/blob/main/intro/01-Chia-101.md)
+   3.  [Developing on Chia with Clovyr Code](https://github.com/clovyr/chia-example/blob/main/intro/02-Getting-Started.md)
+   4.  [Deploying to Testnet](https://github.com/clovyr/chia-example/blob/main/intro/05-Deploying-to-Testnet.md)
+   4.  Examples:
+       -  [Piggybank: A Gentle Introduction](https://github.com/clovyr/chia-example/blob/main/examples/chia-piggybank/02-Piggybank-Simple.md) - how to write a basic Chialisp program
+       - [Piggybank: Quickstart](https://github.com/clovyr/chia-example/blob/main/examples/chia-piggybank/01-Piggybank-QuickStart.md) - how to deploy a completed Chialisp program and interact with it on the testnet
 
-### Prepare piggybank
-First, we generate a puzzle hash from our wallet address:
+## Chialisp Docs
+   1. [Introducing Chialisp](https://www.chia.net/2019/11/27/chialisp.en.html) blog by Bram Cohen 
+   2. [Chialisp Docs: Home](https://chialisp.com/docs/)
+   3. [Chialisp Docs: Chia Asset Tokens (CATs)](https://chialisp.com/docs/puzzles/cats)
+   4. [Chialisp Tutorials: CATs on Linux/MacOS](https://chialisp.com/docs/tutorials/CAT_Launch_Process_Linux_MacOS#creating-a-single-mint-cat)
+      - Note that all the steps before "Creating a single-mint CAT" are completed inside Clovyr Code. 
+      - `chia`, `cdv`, `brun`, and `cat`, are already installed and can be run from the Clovyr Code terminal. (e.g. try `cdv --help`)
+      - See [Developing on Chia with Clovyr Code](https://github.com/clovyr/chia-example/blob/main/intro/02-Getting-Started.md) for how to connect to Chia testnet10, create your wallet, and receive test mojos.
 
-1. `chia wallet get_address -f [fingerprint]` - get wallet address from fingerprint
-2. `cdv decode [wallet address]` - decode bech32m address to a puzzle hash
+## Dev Tools References
+   - [Chia CLI](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference),  `chia --help`
+   - [Chia Dev Tools](https://github.com/Chia-Network/chia-dev-tools), `cdv --help`
+   - [CLVM Tools](https://github.com/Chia-Network/clvm_tools), `run --help` and `brun --help`
+   - [CAT Admin Tool](https://github.com/Chia-Network/CAT-admin-tool), `cat --help` (to test)
 
-Then, we update the piggybank example to use our wallet address
+===================================================
 
-1. `cd /home/clovyr/git/github.com/clovyr/chia-example/examples` - navigate to the examples folder
-2. `cp -pr chia-piggybank piggybank-test` - make a copy of the piggybank example
-3. `cd piggybank-test` - navigate to the new directory
-4. open the piggybank.clsp file
-   - Note that you can click the file in the VSCode sidebar to open it in the editing pane
-6. Locate the wallet placeholder in the example file 
-   - line 10: `(defconstant CASH_OUT_PUZZLE_HASH 0xYourWallet)`
-7. replace "0xYourWallet" constant with the generated puzzle hash of your wallet
-   - e.g. `(defconstant CASH_OUT_PUZZLE_HASH 0x7ba40c4022538388575ebde88dd0158da37e311d28a81e60e576e67807d26ec7)`
-8. Save the file (`CTRL+S` in the editing pane)
 
-### Test connectivity 
-Eventually, we will deploy an empty piggybank, create & send contribution coins, and verify a payment once the threshold is met. 
+## Tips
 
-1. `chia wallet show` - ensure that the wallet is Synced
-2. ensure you are in the `examples/piggybank-test` directory
-3. `python3 -i ./piggybank_drivers.py` - load the piggybank python driver in interactive mode
-   - TOFIX: creating an empty piggybank is failing, likely due to recent updates in the python API. Will look at this.  
-   - However, creating a contribution coin with a value IS working, so we will use that to verify connectivity: 
-   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)` *(we benchmarked 30s for confirmation with 0 fees)*
-5. `CTRL + D` to exit the python interpreter (will unset the value of `contribution_100`) 
+To view a markdown page like this one in the VSCode Preview Pane (pretty mode), press `CTRL+SHIFT+V`.
+
+For help or to chat with others in the community, join chia_network.public on [Keybase](https://keybase.io). 
+
+For help with Clovyr Code during the Chialisp Developer Challenge, join the Chia keybase group and look for the Clovyr Code channel.
