@@ -1,30 +1,43 @@
-# [Chia Dev Sandbox](../README.md) > Getting Started with Developing on Chia
+# Developing on Chia with Clovyr Code
 
 This guide introduces the main tools and processes you'll encounter when building with Chialisp. 
-
-Visit chialisp.com for a deeper dive into Chia fundamentals: [docs](https://chialisp.com/docs/) | [video tutorials](https://chialisp.com/docs/tutorials/why_chia_is_great/)
-
-## Tools
 
 Each of these tools is already installed in this Clovyr Code environment. Go ahead, try them out! 
 (`` CTRL+` `` to show/hide the terminal).
 
  - Chia CLI - `chia --help` - Interact with the chia network | [Full Reference](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference)
- - Chia Developer Tools - `dev --help` - A suite of helpful tools | [Full Reference](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference)
+ - Chia Developer Tools - `cdv --help` - A suite of helpful tools | [Full Reference](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference)
  - CLVM Tools | [Full Reference](https://github.com/Chia-Network/clvm_tools)
     - `run --help` - Compile and execute chialisp to clvm 
     - `brun --help` - Execute clvm code, especially useful for local testing [Tips](https://chialisp.com/docs/high_level_lang)
 
-### Terms to know
- - CLVM - the compiled, low-level language which runs on the Chia blockchain | [Docs](https://chialisp.com/docs/), [Glossary Reference](https://chialisp.com/docs/ref/clvm)
- - Chilisp - the more human-readable version of CLVM which has extra operators and features, and compiles to CLVM | [Docs](https://chialisp.com/docs/high_level_lang), [Common Functions](https://chialisp.com/docs/common_functions)
- - Puzzle - Programs that define the behavior of coins and tokens
- - Solution - Arugments passed to a puzzle that unlock the program's ability to run succesfully
- - Spend - Destruction of a coin (aka completion of a puzzle), usually with creation of new coin(s) to replace it
- - Spend Bundle - One or more coins grouped together into an aggregate value coin, used in conjunction with announcements to securely link a coin spend with its resulting new coin | [Docs](https://chialisp.com/docs/coin_lifecycle#spend-bundles)
- - Signature - Chia uses BLS Signatures which support signature aggregation | [Docs](https://chialisp.com/docs/coins_spends_and_wallets#bls-aggregated-signatures)
- - Conditions - A defined interface that allows puzzles inside coins to communicate with the blockchain. Conditions can both place restrictions on what can happen ("this spend is only valid if X" and define what happens as a result of a successful spend ("If this spend is valid, then X"). Also called OP codes. | [Full list](https://chialisp.com/docs/coins_spends_and_wallets#conditions)
- - Wallet - `chia wallet --help` - A view of the Chia blockchain from the reference point of a single keypair, tracking all puzzles to which it is part of a solution. Wallets can sign things and also generate puzzles and solutions. | [Docs](https://chialisp.com/docs/coins_spends_and_wallets#wallets)
+## Getting Started
+
+### Create and sync a wallet
+The Clovyr Code environment comes with the testnet10 blockchain database pre-downloaded. The first step is to start the node, which will then connect to peers and download the latest activity since the last database image. Syncing to the current block height usually takes less than five minutes. 
+
+1. `chia start node` - start the node
+   - `chia show -c` - view peers (more peers will be added over time)
+   - `chia show -s` - view sync status 
+2. `chia keys generate` - generate unique keys private to the user
+3. `chia start wallet` - begin the wallet fast sync
+
+### Get test mojos
+1. `chia wallet show` - view wallet fingerprint and sync status
+2. `chia wallet get_address -f [fingerprint]` - get wallet address from fingerprint
+3. https://testnet10-faucet.chia.net/request - open the chia testnet web faucet
+   - TODO: REPLACE WITH COMMANDS AFTER API INTEGRATION
+4. enter the wallet address and click [Submit]
+5. `chia wallet show` - verify that the txch was received (this takes about a minute)
+
+## Writing a Chialisp Program
+The steps to write and test Chialisp programs inside of Clovyr Code are exactly the same as if you had a local development environment. When following guides and tutorials online, skip all the steps related to initializing the environment and connecting to the testnet. 
+
+Two examples (chia-checkers and chia-piggybank) are included in this repo. 
+  - [Piggybank: A Gentle Introduction](https://github.com/clovyr/chia-example/blob/main/examples/chia-piggybank/02-Piggybank-Simple.md) is step-by-step tutorial of how to write a basic Chialisp program
+  - [Piggybank: Quickstart](https://github.com/clovyr/chia-example/blob/main/examples/chia-piggybank/01-Piggybank-QuickStart.md) is a step-by-step tutorial of how to deploy a completed Chialisp program and interact with it on the testnet
+
+Use `git clone` to import additional examples from elsewhere. 
 
 ### Chialisp common program layout
 
@@ -53,17 +66,3 @@ Each of these tools is already installed in this Clovyr Code environment. Go ahe
 )
 
 ```
-
-# Video Introductions:
-
-### Why Chia is Great
-[![Why Chia is Great](static/img/video-why_chia_is_great.png)](https://www.youtube.com/watch?v=jRyTNdqP07Y)
-
-### An Overview of Developing Applications on Chia
-[![An Overview of Developing Applications on Chia](static/img/video-an_overview_of_developing_applications_on_chia.png)](https://www.youtube.com/watch?v=lh9spX6Qv8I)
-
-### Programming in Chialisp
-[![Programming in Chialisp](static/img/video-programming_in_chialisp.png)](https://www.youtube.com/watch?v=JcC1_igwSmA)
-
-
-**Next Topic > [Creating a Chia Asset Token](03-Creating-a-Chia-Asset-Token.md)**

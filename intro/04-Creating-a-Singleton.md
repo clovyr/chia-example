@@ -30,5 +30,3 @@ launcher's solution, then the launcher coin will never be born.
 Singletons are a fundamental concept in Chia. In this video, Chia developer Matthew Howard explains what Singletons are and how they're involved in creating Ethereum-like contracts in Chia.:
 
 [![Singletons and Ethereum-like Contracts in Chia](static/img/video-singletons.png)](https://chialisp.com/docs/tutorials/singletons)
-
-**Next Topic > [Deploying to Testnet](05-Deploying-to-Testnet.md)**

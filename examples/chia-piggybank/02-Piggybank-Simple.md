@@ -15,7 +15,7 @@ If you're new to building on Chia, this is a great place to start!
 
 ## Introduction
 
-This tutorial shows how to make a “piggybank": a Custom Asset Token (abbreviated "CAT", or colloquially just called a "custom coin") that increases in value when mojos are sent to it, without allowing any withdrawls until a pre-set savings target is met. Once the goal is met, the piggybank creates a new, spendable coin of that value and resets itself to zero so you can start saving again. 
+This tutorial shows how to make a “piggybank": a "custom coin" that increases in value when mojos are sent to it, without allowing any withdrawls until a pre-set savings target is met. Once the goal is met, the piggybank creates a new, spendable coin of that value and resets itself to zero so you can start saving again. 
 
 This piggybank example is a simple version of something like a Kickstarter model, where funds are collected in an escrow account until the project reaches a goal, at which point a pre-specified recipient receives the total amount. Unlike Kickstarter, in our example we know the rules of the game up front, and that they won’t be altered mid-stream. Out of scope for this example are some features like returning funds in the event that a goal isn’t reached, and some security considerations (covered in another example). 
 

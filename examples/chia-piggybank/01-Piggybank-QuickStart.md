@@ -12,31 +12,22 @@ In this example we will:
 ## Connect to testnet
 In order to deploy our coin to the testnet, we want to run a full node. This will also allow us to test out all the other chia CLI commands to directly inspect the blockchain state. 
 
-Download the blockchain
- - `export CHIA_ROOT="~/.chia/testnet"`
- - `chia init` - create the configuration
- - `chia configure --testnet true` - modify the configuration to connect to the testnet
- - `cd ~/.chia/testnet`, `mkdir db`, `cd db` - create a directory for the testnet blockchain database
- - `wget https://download.chia.net/testnet7/blockchain_v1_testnet7.sqlite` - download the testnet blockchain
+### Create and sync a wallet
+The Clovyr Code environment comes with the testnet10 blockchain database pre-downloaded. The first step is to start the node, which will then connect to peers and download the latest activity since the last database image. Syncing to the current block height usually takes less than five minutes. 
 
-Add this node to the network
- - `chia keys generate` - generate keys and add them to the keychain
-    - *Make note of the wallet address and/or fingerprint.* 
-    - The wallet address can be viewed from the fingerprint with `chia wallet get_address -f [fingerprint]`
- - `chia start farmer` - begin syncing the blockchain
- - `chia show -a testnet-node.chia.net:58444` - add the chia.net peer, which has high availability
- - `chia show --connections` - confirm node has peers
- - `chia show --state` - confirm block height is growing
- - `chia --help` - view more options. [Chia CLI commands reference](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference). 
+1. `chia start node` - start the node
+   - `chia show -c` - view peers (more peers will be added over time)
+   - `chia show -s` - view sync status 
+2. `chia keys generate` - generate unique keys private to the user
+3. `chia start wallet` - begin the wallet fast sync
 
-## Generate Wallet
- - `chia wallet show`, `s` - show wallet information for a new wallet
- - The wallet will need 12-24 hours to completely sync
-
-## Get some test mojos
- - Visit chia-faucet.com/testnet 
- - Enter address: [your wallet address]
- - Enter amount: [0-1], e.g. .5
+### Get test mojos
+1. `chia wallet show` - view wallet fingerprint and sync status
+2. `chia wallet get_address -f [fingerprint]` - get wallet address from fingerprint
+3. https://testnet10-faucet.chia.net/request - open the chia testnet web faucet
+   - TODO: REPLACE WITH COMMANDS AFTER API INTEGRATION
+4. enter the wallet address and click [Submit]
+5. `chia wallet show` - verify that the txch was received (this takes about a minute)
 
 ## Update piggybank example with our wallet address
  - `cp chia-piggybank piggybank-test` - copy the chia-piggybank folder for this test
