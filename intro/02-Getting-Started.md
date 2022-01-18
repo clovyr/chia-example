@@ -28,11 +28,12 @@ If you have only browsed and/or cloned repos, but not done the items above:
 ### Create and sync a wallet
 The Clovyr Code environment comes with the testnet10 blockchain database pre-downloaded. The first step is to start the node, which will then connect to peers and download the latest activity since the last database image. Syncing to the current block height usually takes less than five minutes. 
 
-1. `chia start node` - start the node
+1. `~/git/github.com/clovyr/chia-example/scripts/init.sh` - initialize Chia for the testnet
+2. `chia start node` - start the node
    - `chia show -c` - view peers (more peers will be added over time)
    - `chia show -s` - view sync status 
-2. `chia keys generate` - generate unique keys private to the user
-3. `chia start wallet` - begin the wallet fast sync
+3. `chia keys generate` - generate unique keys private to the user
+4. `chia start wallet` - begin the wallet fast sync
 
 ### Get test mojos
 1. `chia wallet show` - view wallet fingerprint and sync status

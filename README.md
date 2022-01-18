@@ -15,8 +15,6 @@ All of the necessary tools like `chia` and `cdv` are already installed and a con
 
 ===================================================
 
-## Coming Soon: [Chialisp Developer Challenge](https://github.com/clovyr/chia-example/blob/main/intro/90-Chialisp-Developer-Challenge.md)
-
 ## Getting Started with Clovyr Code and Chia
    1.  [About Clovyr Code](https://github.com/clovyr/chia-example/blob/main/intro/98-About-Clovyr-Code.md)
    2.  [A Gentle Introduction to Chia Concepts](https://github.com/clovyr/chia-example/blob/main/intro/01-Chia-101.md)
