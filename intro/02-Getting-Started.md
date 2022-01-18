@@ -13,6 +13,18 @@ Each of these tools is already installed in this Clovyr Code environment. Go ahe
 
 ## Getting Started
 
+### Prequel
+If you didn't run `chia start node` within 24hours or so of opening your Clovyr Code for Chialisp environment, or if you stopped the node and left for a few days, your node is likely far behind the current blockheight. Catching up may take anywhere from 5-30 minutes. You can address this in a few ways:
+
+If you have already authed to your own repo and begun working inside the Clovyr Code environment, or created keys and test mojos you want to keep using:
+   1. Run `wget https://download-chia-net.s3-us-west-2.amazonaws.com/testnet10/blockchain_v1_testnet10.sqlite -O /home/clovyr/.chia/standalone_wallet/db/blockchain_v1_testnet10.sqlite` - this will redownload the latest testnet db
+   2. Run `chia start node` per normal. 
+
+If you have only browsed and/or cloned repos, but not done the items above:
+   1. Visit the [Clovyr Code for Chialisp]( https://clovyr.app/instant/code-chia) splash page and click "Destroy" next to your current environment
+   2. Launch a fresh one
+
+
 ### Create and sync a wallet
 The Clovyr Code environment comes with the testnet10 blockchain database pre-downloaded. The first step is to start the node, which will then connect to peers and download the latest activity since the last database image. Syncing to the current block height usually takes less than five minutes. 
 
