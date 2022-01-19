@@ -15,7 +15,7 @@ If you're new to building on Chia, this is a great place to start!
 
 ## Introduction
 
-This tutorial shows how to make a “piggybank": a "custom coin" that increases in value when mojos are sent to it, without allowing any withdrawls until a pre-set savings target is met. Once the goal is met, the piggybank creates a new, spendable coin of that value and resets itself to zero so you can start saving again. 
+This tutorial shows how to make a “piggybank": a "custom coin" that increases in value when mojos are sent to it, without allowing any withdrawals until a pre-set savings target is met. Once the goal is met, the piggybank creates a new, spendable coin of that value and resets itself to zero so you can start saving again. 
 
 This piggybank example is a simple version of something like a Kickstarter model, where funds are collected in an escrow account until the project reaches a goal, at which point a pre-specified recipient receives the total amount. Unlike Kickstarter, in our example we know the rules of the game up front, and that they won’t be altered mid-stream. Out of scope for this example are some features like returning funds in the event that a goal isn’t reached, and some security considerations (covered in another example). 
 
@@ -34,7 +34,7 @@ Chialisp files begin with a `mod` section, which will define arguments, function
 
 First we define the arguments we will refer to later in our functions.
    * `my_amount` - current balance in the piggybank
-   * `new_amount` - proposed new balance after this transaction. Later on, we'll ensure we only process deposits by verifing that the difference between `new_amount` and `my_amount` is positive
+   * `new_amount` - proposed new balance after this transaction. Later on, we'll ensure we only process deposits by verifying that the difference between `new_amount` and `my_amount` is positive
    * `my_puzzlehash` - this piggybank smart coin or "contract". Each time we accept a new deposit, we recreate the piggybank containing a CAT with the new balance value.
    
 ```clojure
@@ -71,7 +71,7 @@ The constants we need for this example are
 
 ## Main Control Flow 
 
-Whenever we create the main entry point to the application, we like to leave a comment stating as much, with the comment `;main`. Usually the control flow is found at the bottom of the contract, after argumnents, constants, and functions. 
+Whenever we create the main entry point to the application, we like to leave a comment stating as much, with the comment `;main`. Usually the control flow is found at the bottom of the contract, after arguments, constants, and functions. 
 
 This contract will be evaluated everytime someone attempts to change the balance at the puzzle hash address. First we will check if the `new amount` is greater than the prior amount (`my_amount`). If so, continue on. If not (someone is attempting to reduce the balance), we will raise an [error](https://chialisp.com/docs/debugging#using-x-to-log). 
 
@@ -151,7 +151,7 @@ We will use `retrieve`, which will copy the specified .clib file that already ex
 
 ```$ cdv clsp retrieve condition_codes```
 
-Opening that file allows us to peruse all the available OP codes, handily alised so that we can refer to them by their friendly name rather than their op code number in our contract. 
+Opening that file allows us to peruse all the available OP codes, handily aliased so that we can refer to them by their friendly name rather than their op code number in our contract. 
 
 Now we navigate back to our piggybank.clsp file and add an include statement so that our contract knows about the op codes, too. When our dev tool builds this, it’s going to know to look in the include folder. Includes are added to the `mod` section. (Note that [run] and [brun] don’t know about this, so if you are using those, make sure to specify what paths to search for to include from.)
 
