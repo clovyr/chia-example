@@ -38,7 +38,7 @@ The Clovyr Code environment comes with the testnet10 blockchain database pre-dow
 ### Get test mojos
 1. `chia wallet show` - view wallet fingerprint and sync status
 2. `chia wallet get_address -f [fingerprint]` - get wallet address from fingerprint
-3. https://testnet10-faucet.chia.net/request - open the chia testnet web faucet
+3. https://testnet10-faucet.chia.net/ - open the chia testnet web faucet
    - TODO: REPLACE WITH COMMANDS AFTER API INTEGRATION
 4. enter the wallet address and click [Submit]
 5. `chia wallet show` - verify that the txch was received (this takes about a minute)
