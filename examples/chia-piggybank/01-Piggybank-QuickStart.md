@@ -54,4 +54,4 @@ We create a contribution coin, which spends funds from our wallet into a contrib
 
 ## Verify savings dump to new coin
  - `CTRL + D` to exit the python interpreter (will unset the values of `piggybank`, `contribution_100`, & `contribution_200`)
- - `cdv rpc coinrecords --by puzhash [your_puzzle_hash] -ou -s 570135 -nd`
+ - `cdv rpc coinrecords --by puzhash [your_puzzle_hash]`
