@@ -41,7 +41,7 @@ The Clovyr Code environment comes with the testnet10 blockchain database pre-dow
 This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and forms a coin with zero mojos and this puzzle hash. 
 
 - `python3 -i ./piggybank_drivers.py` - load the piggybank python driver in interactive mode
-- `piggybank = deploy_smart_coin("piggybank.clsp", 0)` - deploy the piggybank contract with initial balance of 0
+- `piggybank = deploy_smart_coin("piggybank.clsp", 1)` - deploy the piggybank contract with initial balance of 1
 
 - Note `your_puzzle_hash`
 
