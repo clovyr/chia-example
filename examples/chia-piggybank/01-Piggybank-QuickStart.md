@@ -41,7 +41,7 @@ The Clovyr Code environment comes with the testnet10 blockchain database pre-dow
 
  - In order to create a coin (send to an address) even with 0 mojo, one must
    have a coin to be its parent.  Ensure that your wallet has a nonzero balance
-   with chia wallet show before continuing.
+   with `chia wallet show` before continuing.
 
 ## Deploy empty piggybank
 This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and forms a coin with zero mojos and this puzzle hash. 
