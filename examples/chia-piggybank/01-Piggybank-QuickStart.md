@@ -15,11 +15,12 @@ In order to deploy our coin to the testnet, we want to run a full node. This wil
 ### Create and sync a wallet
 The Clovyr Code environment comes with the testnet10 blockchain database pre-downloaded. The first step is to start the node, which will then connect to peers and download the latest activity since the last database image. Syncing to the current block height usually takes less than five minutes. 
 
-1. `chia start node` - start the node
+1. `~/git/github.com/clovyr/chia-example/scripts/init.sh` - initialize Chia for the testnet
+2. `chia start node` - start the node
    - `chia show -c` - view peers (more peers will be added over time)
    - `chia show -s` - view sync status 
-2. `chia keys generate` - generate unique keys private to the user
-3. `chia start wallet` - begin the wallet fast sync
+3. `chia keys generate` - generate unique keys private to the user
+4. `chia start wallet` - begin the wallet fast sync
 
 ### Get test mojos
 1. `chia wallet show` - view wallet fingerprint and sync status
@@ -30,7 +31,7 @@ The Clovyr Code environment comes with the testnet10 blockchain database pre-dow
 5. `chia wallet show` - verify that the txch was received (this takes about a minute)
 
 ## Update piggybank example with our wallet address
- - `cp chia-piggybank piggybank-test` - copy the chia-piggybank folder for this test
+ - `cp -r chia-piggybank piggybank-test` - copy the chia-piggybank folder for this test
  - open file `piggybank-test/piggybank.clsp`
  - `cdv decode [wallet address]` - decode bech32m address to a puzzle hash
  - update `CASH_OUT_PUZZLE_HASH` constant with the puzzle hash of your wallet. 
@@ -43,21 +44,18 @@ The Clovyr Code environment comes with the testnet10 blockchain database pre-dow
    have a coin to be its parent.  Ensure that your wallet has a nonzero balance
    with `chia wallet show` before continuing.
 
-## Deploy empty piggybank
-This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and forms a coin with zero mojos and this puzzle hash. 
+## Deploy and fund the piggybank
+This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and forms a coin with 1 mojo and this puzzle hash. We then create a contribution coin and deposit it into the piggybank.
 
+- ensure that piggybank-test is your working directory
 - `python3 -i ./piggybank_drivers.py` - load the piggybank python driver in interactive mode
-- `piggybank = deploy_smart_coin("piggybank.clsp", 1)` - deploy the piggybank contract with initial balance of 1
+- `piggybank = deploy_smart_coin("piggybank.clsp", 1, 10)` - deploy the piggybank contract with initial balance of 1 for a 10 mojo txfee
+   - On success, `parent_coin_info` and `puzzle_hash` are displayed. Note the puzzle hash to use as [your_puzzle_hash] in the final verification step
+- Next, we create a contribution coin, which spends funds from our wallet into a contribution coin. Contribution coins are coins earmarked for a specific purpose.  
+   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100, 10)` - create a contribution coin with value of 100 mojos for a 10 mojo txfee
+   - `deposit(piggybank, contribution_100)` - move the value from the contribution coin into the piggybank
 
-- Note `your_puzzle_hash`
-
-## Move mojos into piggybank
-We create a contribution coin, which spends funds from our wallet into a contribution coin. Contribution coins are coins earmarked for a specific purpose. In the future, we will add code to contribution.clsp that restricts the coin so that it will only spend itself as a deposit into the piggybank. 
-
- - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)`
- - `contribution_200 = deploy_smart_coin(("contribution.clsp", 450)`
- - `deposit(piggybank, contribution_100)`
-
-## Verify savings dump to new coin
- - `CTRL + D` to exit the python interpreter (will unset the values of `piggybank`, `contribution_100`, & `contribution_200`)
- - `cdv rpc coinrecords --by puzhash [your_puzzle_hash] -ou -s 460000 -nd`
+## Verify that the piggybank now has stored value
+ - `CTRL + D` to exit the python interpreter (this will unset the values of `piggybank` and `contribution_100`)
+    - Alternatively, open a new terminal with `` CTRL+SHIFT+` ``. Open terminals are listed in the righthand sidebar of the terminal.
+ - `cdv rpc coinrecords --by puzhash [your_puzzle_hash] -ou -s 460000 -nd` - use chia-devtools to verify the contents of the piggybank
