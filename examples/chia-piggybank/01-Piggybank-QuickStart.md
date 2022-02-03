@@ -52,7 +52,7 @@ This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and 
 - `piggybank = deploy_smart_coin("piggybank.clsp", 1)` - deploy the piggybank contract with initial balance of 1
    - On success, `parent_coin_info` and `puzzle_hash` are displayed. Note the puzzle hash to use as [your_puzzle_hash] in the final verification step
 - Next, we create a contribution coin, which spends funds from our wallet into a contribution coin. Contribution coins are coins earmarked for a specific purpose.  
-   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100, 10)` - create a contribution coin with value of 100 mojos for a 10 mojo txfee
+   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)` - create a contribution coin with value of 100 mojos
    - `deposit(piggybank, contribution_100)` - move the value from the contribution coin into the piggybank
 
 ## Verify that the piggybank now has stored value
