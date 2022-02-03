@@ -35,7 +35,7 @@ The Clovyr Code environment comes with the testnet10 blockchain database pre-dow
  - open file `piggybank-test/piggybank.clsp`
  - `cdv decode [wallet address]` - decode bech32m address to a puzzle hash
  - update `CASH_OUT_PUZZLE_HASH` constant with the puzzle hash of your wallet. 
-    - *Prepend the address with "0x!"* (just like in the example contract)
+    - *Prepend the address with "0x"* (just like in the example contract)
  - save the file
 
 ## Ensure you have some chia in your wallet
@@ -49,7 +49,7 @@ This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and 
 
 - ensure that piggybank-test is your working directory
 - `python3 -i ./piggybank_drivers.py` - load the piggybank python driver in interactive mode
-- `piggybank = deploy_smart_coin("piggybank.clsp", 1, 10)` - deploy the piggybank contract with initial balance of 1 for a 10 mojo txfee
+- `piggybank = deploy_smart_coin("piggybank.clsp", 1)` - deploy the piggybank contract with initial balance of 1
    - On success, `parent_coin_info` and `puzzle_hash` are displayed. Note the puzzle hash to use as [your_puzzle_hash] in the final verification step
 - Next, we create a contribution coin, which spends funds from our wallet into a contribution coin. Contribution coins are coins earmarked for a specific purpose.  
    - `contribution_100 = deploy_smart_coin("contribution.clsp", 100, 10)` - create a contribution coin with value of 100 mojos for a 10 mojo txfee
