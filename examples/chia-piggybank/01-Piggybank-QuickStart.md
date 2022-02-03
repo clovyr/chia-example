@@ -54,6 +54,7 @@ This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and 
 - Next, we create a contribution coin, which spends funds from our wallet into a contribution coin. Contribution coins are coins earmarked for a specific purpose.  
    - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)` - create a contribution coin with value of 100 mojos
    - `deposit(piggybank, contribution_100)` - move the value from the contribution coin into the piggybank
+     - Note this step requires a synced blockchain. You can check the sync status in a new terminal with `chia show -s`
 
 ## Verify that the piggybank now has stored value
  - `CTRL + D` to exit the python interpreter (this will unset the values of `piggybank` and `contribution_100`)
