@@ -49,10 +49,10 @@ This script compiles the piggybank.clsp file to clvm, gets its puzzle hash, and 
 
 - ensure that piggybank-test is your working directory
 - `python3 -i ./piggybank_drivers.py` - load the piggybank python driver in interactive mode
-- `piggybank = deploy_smart_coin("piggybank.clsp", 1)` - deploy the piggybank contract with initial balance of 1
+- `piggybank = deploy_smart_coin("piggybank.clsp", 1, 10)` - deploy the piggybank contract with initial balance of 1 mojo for a 10 mojo tx fee
    - On success, `parent_coin_info` and `puzzle_hash` are displayed. Note the puzzle hash to use as [your_puzzle_hash] in the final verification step
 - Next, we create a contribution coin, which spends funds from our wallet into a contribution coin. Contribution coins are coins earmarked for a specific purpose.  
-   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100)` - create a contribution coin with value of 100 mojos
+   - `contribution_100 = deploy_smart_coin("contribution.clsp", 100, 10)` - create a contribution coin with value of 100 mojos for a 10 mojo tx fee
    - `deposit(piggybank, contribution_100)` - move the value from the contribution coin into the piggybank
      - Note this step requires a synced blockchain. You can check the sync status in a new terminal with `chia show -s`
 
