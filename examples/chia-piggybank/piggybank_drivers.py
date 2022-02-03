@@ -97,7 +97,7 @@ async def send_money_async(amount, address, fee=0):
 def send_money(amount, address, fee=0):
     return asyncio.run(send_money_async(amount, address, fee))
 
-def deploy_smart_coin(clsp_file: str, amount: uint64):
+def deploy_smart_coin(clsp_file: str, amount: uint64, fee=0):
     s = time.perf_counter()
     # load coins (compiled and serialized, same content as clsp.hex)
     mod = load_clvm(clsp_file, package_or_requirement=__name__)
@@ -105,7 +105,7 @@ def deploy_smart_coin(clsp_file: str, amount: uint64):
     treehash = mod.get_tree_hash()
     # cdv encode
     address = encode_puzzle_hash(treehash, "txch")
-    coin = send_money(amount, address)
+    coin = send_money(amount, address, fee)
     elapsed = time.perf_counter() - s
     print(f"deploy {clsp_file} with {amount} mojos to {treehash} in {elapsed:0.2f} seconds.")
     print(f"coin_id: {coin.get_hash().hex()}")
