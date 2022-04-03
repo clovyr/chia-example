@@ -40,7 +40,7 @@ The Clovyr Code environment comes with the testnet10 blockchain database pre-dow
 2. `chia wallet get_address -f [fingerprint]` - get wallet address from fingerprint
 3. Get funds from either:
    - open https://testnet10-faucet.chia.net/ to get funds via the web-based faucet
-   - or use `scripts/fund-wallet.sh <address> [amount]` to get funds via CLI
+   - or use ``~/git/github.com/clovyr/chia-example/scripts/fund-wallet.sh <address> [amount]` to get funds via CLI
 4. enter the wallet address and click [Submit]
 5. `chia wallet show` - verify that the txch was received (this takes about a minute)
 
